@@ -1,0 +1,2 @@
+File ini adalah placeholder untuk gambar default berita.
+Silakan ganti dengan gambar default untuk berita dalam format .png atau .jpg jika diperlukan.

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Negeri 40 Kecamatan Pontianak Utara</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-section">
+                <img src="images/logo-school.png" alt="Logo SD Negeri 40 Pontianak Utara" class="school-logo">
+                <h1>SD Negeri 40<br>Kecamatan Pontianak Utara</h1>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#news">Berita</a></li>
+                    <li><a href="#activities">Kegiatan</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                    <li><a href="login.html">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Selamat Datang di Website Resmi</h2>
+            <p>SD Negeri 40 Kecamatan Pontianak Utara</p>
+            <button class="cta-button">Pelajari Lebih Lanjut</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Tentang Sekolah Kami</h2>
+            <div class="about-content">
+                <div class="vision-mission">
+                    <h3>Visi & Misi</h3>
+                    <p>Terwujudnya Warga Sekolah yang Beriman, Berprestasi, Berkarakter Pancasila, Cerdas, Berwawasan Lingkungan dan Informasi Teknologi.</p>
+                    
+                    <h4>Misi Sekolah:</h4>
+                    <ol>
+                        <li>Mewujudkan murid yang taat beribadah melalui kegiatan keagamaan dan proses pembelajaran yang berlandaskan nilai spiritual.</li>
+                        <li>Melaksanakan proses pembelajaran yang mendalam dan bermakna guna mencetak murid yang mampu meraih prestasi di bidang akademik dan non-akademik serta mampu menerapkan ilmunya dalam kehidupan sehari-hari.</li>
+                        <li>Mengembangkan murid yang memiliki dimensi Profil Pelajar Pancasila meliputi keimanan dan ketakwaan, kewargaan, penalaran kritis, kreativitas, kolaborasi, kemandirian, kesehatan, dan komunikasi melalui kegiatan pembelajaran yang menyenangkan.</li>
+                        <li>Melaksanakan kegiatan kokurikuler dan ekstrakurikuler secara berkolaborasi dan lintas mata pelajaran untuk menumbuhkan karakter Pancasila.</li>
+                        <li>Menyelenggarakan kegiatan rutin seperti senam anak Indonesia hebat, program makan dan minum bergizi, serta jalan sehat secara berkala untuk menumbuhkan kebugaran jasmani dan kesehatan peserta didik.</li>
+                        <li>Melaksanakan kegiatan “Jumat Bersih” untuk menanamkan karakter peduli terhadap kebersihan dan lingkungan sekolah.</li>
+                        <li>Mengimplementasikan pembelajaran berbasis teknologi informasi agar murid dapat menggunakan teknologi secara cerdas, aman, dan bertanggung jawab.</li>
+                    </ol>
+                </div>
+                
+                <div class="leadership">
+                    <h3>Pemimpin Sekolah</h3>
+                    <div class="leader-card">
+                        <img src="images/principal.png" alt="Kepala Sekolah">
+                        <h4>Nama Kepala Sekolah</h4>
+                        <p>Jabatan: Kepala Sekolah</p>
+                        <p>Pendidikan: S.Pd</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="container">
+            <h2>Fasilitas Sekolah</h2>
+            <div class="facilities-grid">
+                <div class="facility-item">
+                    <img src="images/classroom.jpg" alt="Ruang Kelas">
+                    <h3>Ruang Kelas</h3>
+                    <p>Ruang kelas nyaman dengan fasilitas lengkap untuk proses belajar mengajar</p>
+                </div>
+                <div class="facility-item">
+                    <img src="images/library.jpg" alt="Perpustakaan">
+                    <h3>Perpustakaan</h3>
+                    <p>Perpustakaan dengan koleksi buku pelajaran dan umum yang lengkap</p>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="news">
+        <div class="container">
+            <h2>Berita Terbaru</h2>
+            <div class="news-grid" id="newsContainer">
+                <!-- Berita akan dimuat secara dinamis dari API -->
+                <p>Loading berita...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="activities">
+        <div class="container">
+            <h2>Kegiatan Sekolah</h2>
+            <div class="activities-content">
+                <div class="activity-list">
+                    <h3>Ekstrakurikuler yang Tersedia</h3>
+                    <ul>
+                        <li>Pramuka</li>
+                        
+                    </ul>
+                </div>
+                <div class="activity-gallery">
+                    <h3>Galeri Kegiatan</h3>
+                    <div class="gallery-grid" id="activitiesContainer">
+                        <!-- Kegiatan akan dimuat secara dinamis dari API -->
+                        <p>Loading kegiatan...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Hubungi Kami</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <p><strong>Alamat:</strong> Jl. Contoh Alamat Sekolah No. 123, Kecamatan Pontianak Utara, Kota Pontianak</p>
+                    <!--<p><strong>Telepon:</strong> (0561) 123456</p>-->
+                    <p><strong>Email:</strong> sdn40utara@gmail.com</p>
+                    <p><strong>Waktu Operasional:</strong> Senin - Jumat, 07.00 - 15.00 WIB</p>
+                </div>
+                <div class="contact-form">
+                    <!--<h3>Formulir Kontak</h3>
+                    <form id="contactForm">
+                        <input type="text" placeholder="Nama Lengkap" required>
+                        <input type="email" placeholder="Email Anda" required>
+                        <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+                        <button type="submit">Kirim Pesan</button>
+                    </form>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SD Negeri 40 Kecamatan Pontianak Utara. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

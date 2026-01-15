@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - SDN 40 Pontianak Utara</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .main-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+        
+        .logout-btn {
+            background-color: #e74c3c;
+        }
+        
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .image-preview .remove-image {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .image-upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .image-upload-area:hover {
+            border-color: #3498db;
+        }
+        
+        .image-upload-area p {
+            margin: 10px 0 0;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Dashboard Admin - SDN 40 Pontianak Utara</h1>
+        <button class="btn-submit logout-btn" id="logoutBtn">Logout</button>
+    </div>
+    
+    <div class="admin-container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#" class="menu-item active" data-section="add-news">Tambah Berita</a></li>
+                <li><a href="#" class="menu-item" data-section="manage-news">Kelola Berita</a></li>
+                <li><a href="#" class="menu-item" data-section="add-activity">Tambah Kegiatan</a></li>
+                <li><a href="#" class="menu-item" data-section="manage-activities">Kelola Kegiatan</a></li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <!-- Form Tambah Berita -->
+            <div id="add-news" class="content-section">
+                <h2>Tambah Berita Baru</h2>
+                <form id="newsForm">
+                    <div class="form-group">
+                        <label for="newsTitle">Judul Berita:</label>
+                        <input type="text" id="newsTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsDate">Tanggal:</label>
+                        <input type="date" id="newsDate" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsContent">Isi Berita:</label>
+                        <textarea id="newsContent" name="content" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsImages">Unggah Gambar (Maksimal 5):</label>
+                        <div class="image-upload-area" onclick="document.getElementById('newsImages').click()">
+                            <p>Klik untuk memilih gambar atau seret dan lepas gambar ke sini</p>
+                        </div>
+                        <input type="file" id="newsImages" name="images" accept="image/*" multiple style="display: none;" onchange="previewImages(this, 'newsPreview')">
+                        <div id="newsPreview" class="image-preview-container"></div>
+                    </div>
+                    <button type="submit" class="btn-submit">Simpan Berita</button>
+                </form>
+            </div>
+            
+            <!-- Form Kelola Berita -->
+            <div id="manage-news" class="content-section hidden">
+                <h2>Kelola Berita</h2>
+                <table id="newsTable">
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data akan diisi oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Form Tambah Kegiatan -->
+            <div id="add-activity" class="content-section hidden">
+                <h2>Tambah Kegiatan Baru</h2>
+                <form id="activityForm">
+                    <div class="form-group">
+                        <label for="activityTitle">Nama Kegiatan:</label>
+                        <input type="text" id="activityTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityDescription">Deskripsi Kegiatan:</label>
+                        <textarea id="activityDescription" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityImages">Unggah Gambar (Maksimal 5):</label>
+                        <div class="image-upload-area" onclick="document.getElementById('activityImages').click()">
+                            <p>Klik untuk memilih gambar atau seret dan lepas gambar ke sini</p>
+                        </div>
+                        <input type="file" id="activityImages" name="images" accept="image/*" multiple style="display: none;" onchange="previewImages(this, 'activityPreview')">
+                        <div id="activityPreview" class="image-preview-container"></div>
+                    </div>
+                    <button type="submit" class="btn-submit">Simpan Kegiatan</button>
+                </form>
+            </div>
+            
+            <!-- Form Kelola Kegiatan -->
+            <div id="manage-activities" class="content-section hidden">
+                <h2>Kelola Kegiatan</h2>
+                <table id="activitiesTable">
+                    <thead>
+                        <tr>
+                            <th>Nama Kegiatan</th>
+                            <th>Deskripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data akan diisi oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html>
