@@ -1,5 +1,10 @@
 // JavaScript untuk fungsi-fungsi interaktif pada website SD Negeri 40 Kecamatan Pontianak Utara
 
+// Tetapkan base URL untuk API berdasarkan lingkungan
+const API_BASE_URL = window.location.hostname === 'localhost' ? 
+    'http://localhost:3000' : 
+    'https://api.namadomainanda.com'; // Ganti dengan domain API Anda
+
 // Fungsi untuk navigasi smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -15,26 +20,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Fungsi untuk form kontak - hanya diterapkan jika elemen tersedia
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Ambil nilai dari form
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const message = this.querySelector('textarea').value;
-        
-        // Validasi sederhana
-        if(name && email && message) {
-            alert(`Terima kasih ${name}, pesan Anda telah dikirim!`);
-            this.reset(); // Reset form setelah submit
-        } else {
-            alert('Mohon lengkapi semua field sebelum mengirim!');
-        }
-    });
-}
+// Fungsi untuk form kontak
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Ambil nilai dari form
+    const name = this.querySelector('input[type="text"]').value;
+    const email = this.querySelector('input[type="email"]').value;
+    const message = this.querySelector('textarea').value;
+    
+    // Validasi sederhana
+    if(name && email && message) {
+        alert(`Terima kasih ${name}, pesan Anda telah dikirim!`);
+        this.reset(); // Reset form setelah submit
+    } else {
+        alert('Mohon lengkapi semua field sebelum mengirim!');
+    }
+});
 
 // Fungsi untuk toggle menu mobile (jika dibutuhkan nanti)
 function toggleMobileMenu() {
@@ -91,7 +93,7 @@ async function loadNewsFromAPI() {
         console.log('Loading news from API...');
         // Tambahkan parameter cache buster untuk memastikan data terbaru
         const timestamp = new Date().getTime();
-        const response = await fetch(`/api/public/news?t=${timestamp}`);
+        const response = await fetch(`${API_BASE_URL}/api/public/news?t=${timestamp}`);
         
         console.log('News API response status:', response.status);
         
@@ -186,7 +188,7 @@ async function loadActivitiesFromAPI() {
         console.log('Loading activities from API...');
         // Tambahkan parameter cache buster untuk memastikan data terbaru
         const timestamp = new Date().getTime();
-        const response = await fetch(`/api/public/activities?t=${timestamp}`);
+        const response = await fetch(`${API_BASE_URL}/api/public/activities?t=${timestamp}`);
         
         console.log('Activities API response status:', response.status);
         
@@ -260,7 +262,7 @@ function displayActivities(activities) {
         const imageUrl = item.imageUrls && item.imageUrls.length > 0 ? 
             item.imageUrls[0] : 
             'images/activity-default.jpg';
-            
+        
         activitiesHTML += `
             <div class="gallery-item">
                 <img src="${imageUrl}" alt="${item.title}">
@@ -270,7 +272,6 @@ function displayActivities(activities) {
     });
     
     container.innerHTML = activitiesHTML;
-    console.log('Activities displayed successfully');
 }
 
 // Fungsi untuk slideshow jika diperlukan di masa depan
@@ -374,4 +375,15 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Displaying cached activities initially');
         displayActivities(cachedActivities);
     }
+    
+    // Muat berita dan kegiatan dari API
+    loadNewsFromAPI();
+    loadActivitiesFromAPI();
+    
+    // Atur interval untuk memperbarui data setiap 2 menit (120000 ms)
+    setInterval(() => {
+        console.log('Refreshing news and activities data...');
+        loadNewsFromAPI();
+        loadActivitiesFromAPI();
+    }, 120000);
 });

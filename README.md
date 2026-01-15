@@ -1,48 +1,53 @@
 # Website SD Negeri 40 Kecamatan Pontianak Utara
 
-Website ini dibuat untuk memperkenalkan dan memberikan informasi tentang SD Negeri 40 Kecamatan Pontianak Utara.
-
-## Deskripsi Proyek
-
-Website ini mencakup berbagai informasi penting tentang sekolah dasar negeri tersebut, termasuk:
-
-- **Tentang Kami**: Informasi visi, misi, dan kepemimpinan sekolah
-- **Fasilitas**: Menampilkan sarana dan prasarana yang tersedia di sekolah
-- **Berita Terbaru**: Informasi tentang kegiatan dan perkembangan terbaru sekolah
-- **Kegiatan Sekolah**: Informasi tentang ekstrakurikuler dan kegiatan siswa
-- **Kontak**: Informasi cara menghubungi sekolah
-
-## Teknologi yang Digunakan
-
-- HTML5
-- CSS3
-- JavaScript
-
-## Struktur Direktori
-
-```
-SDN-40-Pontianak-Utara/
-│
-├── index.html          # Halaman utama website
-├── styles.css          # File stylesheet
-├── script.js           # File javascript untuk fungsionalitas
-├── images/             # Folder untuk menyimpan gambar-gambar
-└── README.md           # Dokumentasi proyek
-```
+Website ini dibuat untuk menyediakan informasi tentang SD Negeri 40 Kecamatan Pontianak Utara, termasuk berita, kegiatan sekolah, dan informasi penting lainnya.
 
 ## Fitur
 
-- Responsif dan mobile-friendly
-- Navigasi smooth scrolling
-- Formulir kontak interaktif
-- Tampilan yang menarik dan informatif
+- Tampilan responsif untuk berbagai perangkat
+- Halaman tentang sekolah, fasilitas, dan informasi kontak
+- Halaman berita untuk menampilkan informasi terbaru
+- Halaman kegiatan untuk galeri kegiatan sekolah
+- Sistem administrasi untuk mengelola berita dan kegiatan
+- Upload gambar untuk berita dan kegiatan (1-5 gambar per entri)
 
-## Cara Menjalankan
+## Teknologi yang Digunakan
 
-1. Clone atau download repository ini
-2. Buka file `index.html` di browser web Anda
-3. Website siap diakses
+- HTML5, CSS3, JavaScript
+- Node.js untuk backend
+- MongoDB untuk database
+- Express.js untuk framework web
+- Multer untuk upload file
+- JWT untuk otentikasi
+
+## Instalasi Lokal
+
+1. Clone repository ini
+2. Install Node.js dan npm
+3. Jalankan `npm install` untuk menginstal dependensi
+4. Buat file `.env` dan tambahkan:
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secret_key
+   ```
+5. Jalankan `node server.js` untuk memulai server
+6. Akses `http://localhost:3000` di browser Anda
+
+## Deployment
+
+Untuk informasi lengkap tentang cara meng-deploy ke Cloudflare dan platform hosting lainnya, lihat file [DEPLOYMENT-CLOUDFLARE.md](file:///d:/New%20folder%20(6)/DEPLOYMENT-CLOUDFLARE.md).
+
+## Penggunaan Admin
+
+1. Akses halaman login admin
+2. Gunakan username dan password untuk login
+3. Tambahkan, edit, atau hapus berita dan kegiatan
+4. Upload 1-5 gambar per entri
 
 ## Kontribusi
 
-Jika Anda ingin berkontribusi pada pengembangan website ini, silakan kirimkan pull request atau hubungi pengelola proyek.
+Silakan fork repository ini dan buat pull request untuk kontribusi.
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah MIT License.

@@ -1,3 +1,8 @@
+// Tetapkan base URL untuk API berdasarkan lingkungan
+const API_BASE_URL = window.location.hostname === 'localhost' ? 
+    'http://localhost:3000' : 
+    'https://api.namadomainanda.com'; // Ganti dengan domain API Anda
+
 // Fungsi untuk preview gambar
 function previewImages(input, previewContainerId) {
     const previewContainer = document.getElementById(previewContainerId);
@@ -138,11 +143,11 @@ document.getElementById('newsForm').addEventListener('submit', async (e) => {
         let url, method;
         if (newsId) {
             // Jika sedang mengedit
-            url = `/api/news/${newsId}`;
+            url = `${API_BASE_URL}/api/news/${newsId}`;
             method = 'PUT';
         } else {
             // Jika sedang menambahkan
-            url = '/api/news';
+            url = `${API_BASE_URL}/api/news`;
             method = 'POST';
         }
         
@@ -216,11 +221,11 @@ document.getElementById('activityForm').addEventListener('submit', async (e) => 
         let url, method;
         if (activityId) {
             // Jika sedang mengedit
-            url = `/api/activities/${activityId}`;
+            url = `${API_BASE_URL}/api/activities/${activityId}`;
             method = 'PUT';
         } else {
             // Jika sedang menambahkan
-            url = '/api/activities';
+            url = `${API_BASE_URL}/api/activities`;
             method = 'POST';
         }
         
@@ -261,7 +266,7 @@ document.getElementById('activityForm').addEventListener('submit', async (e) => 
 // Load news data
 async function loadNewsData() {
     try {
-        const response = await fetch('/api/news', {
+        const response = await fetch(`${API_BASE_URL}/api/news`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
             }
@@ -294,7 +299,7 @@ async function loadNewsData() {
 // Load activities data
 async function loadActivitiesData() {
     try {
-        const response = await fetch('/api/activities', {
+        const response = await fetch(`${API_BASE_URL}/api/activities`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
             }
@@ -327,7 +332,7 @@ async function loadActivitiesData() {
 // Edit news function
 async function editNews(id) {
     try {
-        const response = await fetch(`/api/news/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/news/${id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
             }
@@ -404,7 +409,7 @@ async function deleteNews(id) {
     if (!confirm('Apakah Anda yakin ingin menghapus berita ini?')) return;
     
     try {
-        const response = await fetch(`/api/news/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/news/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
@@ -433,7 +438,7 @@ async function deleteNews(id) {
 // Edit activity function
 async function editActivity(id) {
     try {
-        const response = await fetch(`/api/activities/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/activities/${id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
             }
@@ -509,7 +514,7 @@ async function deleteActivity(id) {
     if (!confirm('Apakah Anda yakin ingin menghapus kegiatan ini?')) return;
     
     try {
-        const response = await fetch(`/api/activities/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/activities/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`

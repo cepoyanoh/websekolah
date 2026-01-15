@@ -1,0 +1,23 @@
+runtime: nodejs18
+
+env_variables:
+  MONGODB_URI: YOUR_MONGODB_URI_HERE
+  JWT_SECRET: YOUR_JWT_SECRET_HERE
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+  target_cpu_utilization: 0.6
+
+handlers:
+- url: /uploads
+  static_dir: uploads
+  expiration: "1d"
+
+- url: /(.*\.(css|js|png|jpg|jpeg|gif|ico|svg))$
+  static_files: \1
+  upload: .*\.(css|js|png|jpg|jpeg|gif|ico|svg)$
+  expiration: "1d"
+
+- url: /.*
+  script: auto

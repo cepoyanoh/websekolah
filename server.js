@@ -16,9 +16,10 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// MongoDB Connection
+// MongoDB Connection - Production ready
 const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://sd40utara_db_user:sdn40utara@dbwebsekolah.4eis5wu.mongodb.net/?appName=dbwebsekolah';
 
+// Production ready connection options
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -128,7 +129,7 @@ app.post('/login', async (req, res) => {
         const token = jwt.sign(
             { userId: user._id, username: user.username },
             process.env.JWT_SECRET || 'fallback_secret_key',
-            { expiresIn: '24h' }
+            { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
         );
 
         res.json({ 
@@ -204,6 +205,20 @@ app.get('/api/news', authenticateToken, async (req, res) => {
     }
 });
 
+// Add route to get individual news item
+app.get('/api/news/:id', authenticateToken, async (req, res) => {
+    try {
+        const news = await News.findById(req.params.id);
+        if (!news) {
+            return res.status(404).json({ success: false, message: 'Berita tidak ditemukan' });
+        }
+        res.json(news);
+    } catch (error) {
+        console.error('Error fetching news by ID:', error);
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    }
+});
+
 // Updated route to handle multiple images with the correct field name
 app.post('/api/news', authenticateToken, upload.array('images', 5), async (req, res) => {
     console.log('Received news upload request');
@@ -239,20 +254,6 @@ app.post('/api/news', authenticateToken, upload.array('images', 5), async (req, 
         res.json({ success: true, message: 'Berita berhasil ditambahkan', news });
     } catch (error) {
         console.error('Error adding news:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
-    }
-});
-
-// Add route to get individual news item
-app.get('/api/news/:id', authenticateToken, async (req, res) => {
-    try {
-        const news = await News.findById(req.params.id);
-        if (!news) {
-            return res.status(404).json({ success: false, message: 'Berita tidak ditemukan' });
-        }
-        res.json(news);
-    } catch (error) {
-        console.error('Error fetching news by ID:', error);
         res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
@@ -313,6 +314,20 @@ app.get('/api/activities', authenticateToken, async (req, res) => {
     }
 });
 
+// Add route to get individual activity item
+app.get('/api/activities/:id', authenticateToken, async (req, res) => {
+    try {
+        const activity = await Activity.findById(req.params.id);
+        if (!activity) {
+            return res.status(404).json({ success: false, message: 'Kegiatan tidak ditemukan' });
+        }
+        res.json(activity);
+    } catch (error) {
+        console.error('Error fetching activity by ID:', error);
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    }
+});
+
 // Updated route to handle multiple images with the correct field name
 app.post('/api/activities', authenticateToken, upload.array('images', 5), async (req, res) => {
     console.log('Received activity upload request');
@@ -347,20 +362,6 @@ app.post('/api/activities', authenticateToken, upload.array('images', 5), async 
         res.json({ success: true, message: 'Kegiatan berhasil ditambahkan', activity });
     } catch (error) {
         console.error('Error adding activity:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
-    }
-});
-
-// Add route to get individual activity item
-app.get('/api/activities/:id', authenticateToken, async (req, res) => {
-    try {
-        const activity = await Activity.findById(req.params.id);
-        if (!activity) {
-            return res.status(404).json({ success: false, message: 'Kegiatan tidak ditemukan' });
-        }
-        res.json(activity);
-    } catch (error) {
-        console.error('Error fetching activity by ID:', error);
         res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
@@ -449,10 +450,18 @@ app.use((error, req, res, next) => {
     }
 });
 
+// Error handling middleware
+app.use((error, req, res, next) => {
+    console.error('Unhandled error:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0'; // Biarkan server diakses dari luar localhost
+
+const server = app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
     
     // Check if JWT secret is properly configured
     if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'secret_key_for_jwt_tokens') {
